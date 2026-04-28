@@ -1275,8 +1275,14 @@ em { font-style: italic; color: var(--primary); }
    ========================================== */
 .properties-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 24px;
+}
+
+@media (max-width: 1200px) {
+    .properties-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .property-card {
@@ -1387,6 +1393,97 @@ em { font-style: italic; color: var(--primary); }
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
+}
+
+/* ==========================================
+   Property Image Carousel
+   ========================================== */
+.prop-carousel {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.prop-carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prop-carousel-track .property-img {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: none;
+}
+
+.property-card:hover .prop-carousel-track .property-img {
+    transform: none;
+}
+
+.prop-carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    border: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+    font-size: 0.7rem;
+    opacity: 0;
+    transition: opacity 0.2s, background 0.2s;
+}
+
+.property-card:hover .prop-carousel-btn {
+    opacity: 1;
+}
+
+.prop-prev { left: 10px; }
+.prop-next { right: 10px; }
+
+.prop-carousel-btn:hover {
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.prop-carousel-dots {
+    position: absolute;
+    bottom: 54px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 6px;
+    z-index: 3;
+}
+
+.prop-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.prop-dot.active {
+    background: #fff;
+    transform: scale(1.35);
+}
+
+@media (max-width: 768px) {
+    .prop-carousel-btn {
+        opacity: 1;
+    }
 }
 
 /* ==========================================
