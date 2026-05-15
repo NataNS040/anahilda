@@ -174,4 +174,32 @@ document.addEventListener('DOMContentLoaded', () => {
             if (target) target.scrollIntoView({ behavior: 'smooth' });
         });
     });
+
+    // ---- Property Photo Carousels ----
+    document.querySelectorAll('.prop-carousel').forEach(carousel => {
+        const track = carousel.querySelector('.prop-carousel-track');
+        const imgs = track.querySelectorAll('.property-img');
+        const dots = carousel.querySelectorAll('.prop-dot');
+        const prevBtn = carousel.querySelector('.prop-prev');
+        const nextBtn = carousel.querySelector('.prop-next');
+        let idx = 0;
+
+        const goTo = (n) => {
+            idx = (n + imgs.length) % imgs.length;
+            track.style.transform = `translateX(-${idx * 100}%)`;
+            dots.forEach((d, i) => d.classList.toggle('active', i === idx));
+        };
+
+        prevBtn?.addEventListener('click', e => { e.stopPropagation(); goTo(idx - 1); });
+        nextBtn?.addEventListener('click', e => { e.stopPropagation(); goTo(idx + 1); });
+        dots.forEach((dot, i) => dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); }));
+
+        // Touch swipe support
+        let touchStartX = 0;
+        carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+        carousel.addEventListener('touchend', e => {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) goTo(diff > 0 ? idx + 1 : idx - 1);
+        });
+    });
 });
