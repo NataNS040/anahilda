@@ -1,0 +1,13 @@
+# Arquivos de sistema
+.DS_Store
+Thumbs.db
+
+# Pasta salva do OLX (nome de arquivo longo)
+assets/imoveis/VT 709/VT 709/buzios/Terreno*
+assets/imoveis/VT 709/VT 709/buzios/*_files/
+
+# Playwright
+.playwright-mcp/
+
+# Videos (muito pesados para git)
+assets/**/*.mp4
